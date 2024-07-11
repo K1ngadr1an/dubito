@@ -6,6 +6,18 @@ import { ModelReports } from "./models/reports";
 import { ModelUtenti } from "./models/utenti";
 import DocAPI from "./models/DocAPI";
 import { ModelDevices } from "./models/devices";
+interface ParamsCreateAd {
+  title: string;
+  description: string;
+  category: string;
+  status: string;
+  price: number;
+  photo: string;
+  address: string;
+  sold: boolean;
+  phone: string;
+  referenceKeyUser: number;
+}
 
 export class App {
   users: Array<ModelUtenti> = [];
@@ -58,18 +70,18 @@ export class App {
       return true;
     } else return false;
   }
-  createAd(
-    title: string,
-    description: string,
-    category: string,
-    status: string,
-    price: number,
-    photo: string,
-    address: string,
-    sold: boolean,
-    phone: string,
-    referenceKeyUtenti: number
-  ) {
+  createAd({
+    title,
+    description,
+    category,
+    status,
+    price,
+    photo,
+    address,
+    sold,
+    phone,
+    referenceKeyUser,
+  }: ParamsCreateAd) {
     const classModelAnnunci = new ModelAnnunci(
       title,
       description,
@@ -80,7 +92,7 @@ export class App {
       address,
       sold,
       phone,
-      referenceKeyUtenti
+      referenceKeyUser
     );
     this.ads = [...this.ads, classModelAnnunci];
     return true;
@@ -213,9 +225,6 @@ const apis = {
   deleteReview: new DocAPI("/Recensioni", "DELETE", true),
   deleteAccount: new DocAPI("/Utenti/{PrimaryKeyUtenti}", "DELETE", true),
   addFavorite: new DocAPI("/Preferiti", "POST", true),
-  getFavorites: new DocAPI("/Preferiti", "GET", true),
-  getAds: new DocAPI("/Annunci", "GET", true),
-  getReviews: new DocAPI("/Recensioni", "GET", true),
   getAuthbyToken: new DocAPI("/Auth", "GET", true),
   getReports: new DocAPI("/Reports", "GET", true),
   getProfile: new DocAPI("/Utenti", "GET", true),
