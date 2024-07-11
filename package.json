@@ -1,14 +1,15 @@
 {
   "scripts": {
     "build": "tsc --noEmit && tsc --outDir build",
-    "start": "npm run build && node build/models/index.js"
+    "dev": "node build/index.js",
+    "start": "nodemon"
   },
   "devDependencies": {
     "@types/express": "^4.17.21",
+    "nodemon": "^3.1.4",
     "typescript": "^5.5.3"
   },
   "dependencies": {
-    "express": "^4.19.2",
-    "nodemon": "^3.1.4"
+    "express": "^4.19.2"
   }
 }
